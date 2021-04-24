@@ -1,0 +1,11 @@
+.courtries-container {
+    display: flex;
+    flex-direction: row;
+    width: 500px;
+    background: white;
+    height: 400px;
+    margin: 20px;
+    justify-content: center;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px gray;
+}
