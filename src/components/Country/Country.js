@@ -13,10 +13,26 @@ const Country = (props) => {
                 <div className='single-item'>
                     <img src={flag} alt='' width='150px' height='75px' />
                     <h2>{name}</h2>
-                    <h3>{capital === '' ? 'Not Found' : capital}</h3>
-                    <h4>{cioc === '' ? 'Not Found' : cioc}</h4>
-                    <p>{population === '' ? 'Not Found' : population}</p>
-                    <p>{region === '' ? 'Not Found' : region}</p>
+                    <p>
+                        Capital:{' '}
+                        <strong>
+                            {capital === '' ? 'Not Found' : capital}
+                        </strong>{' '}
+                    </p>
+                    <p>
+                        Cioc:{' '}
+                        <strong>{cioc === '' ? 'Not Found' : cioc}</strong>
+                    </p>
+                    <p>
+                        Population:{' '}
+                        <strong>
+                            {population === '' ? 'Not Found' : population}
+                        </strong>
+                    </p>
+                    <p>
+                        Region:{' '}
+                        <strong>{region === '' ? 'Not Found' : region}</strong>
+                    </p>
                     <button
                         className='btn btn-danger btn-lg'
                         onClick={() => props.handleWishList(props.country)}>

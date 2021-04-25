@@ -4,18 +4,17 @@ import { useEffect, useState } from 'react';
 import Country from './components/Country/Country';
 
 function App() {
-    const [originalCountries, setOriginalCountries] = useState([])
+    const [originalCountries, setOriginalCountries] = useState([]);
     const [countries, setCountries] = useState([]);
     const [wishlist, setWishlist] = useState([]);
 
     useEffect(() => {
         fetch('https://restcountries.eu/rest/v2/all')
-        .then((res) => res.json())
-        .then((countries) => {
-            setOriginalCountries(countries)
-            setCountries(countries);
-        },
-        console.log('useEffect'));
+            .then((res) => res.json())
+            .then((countries) => {
+                setOriginalCountries(countries);
+                setCountries(countries);
+            }, console.log('useEffect'));
     }, []);
 
     const handleWishList = (country) => {
@@ -27,7 +26,9 @@ function App() {
     const searchCountry = (searchTerm) => {
         console.log(searchTerm);
         const filteredCountries = originalCountries.filter((country) => {
-            return country.name.toLowerCase().includes(searchTerm.toLowerCase())
+            return country.name
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
         });
         setCountries(filteredCountries);
     };
@@ -43,19 +44,30 @@ function App() {
             <div>
                 Wish list Countries:
                 {wishlist.map((couFlag) => (
-                    <img src={couFlag.flag} alt='country_image' height='25px' width='50px' />
+                    <img
+                        src={couFlag.flag}
+                        alt='country_image'
+                        height='25px'
+                        width='50px'
+                    />
                 ))}
             </div>
 
             {/* // Search Country */}
             <div className='form'>
                 <h5>Search Country </h5>
-                <input
-                    onKeyUp={function (e) { searchCountry(e.target.value); }}
-                    type='search'
-                    name=''
-                    placeholder='Search Country'
-                />
+
+                <div class='form-outline w-50 m-auto '>
+                    <input
+                        className='text-center form-control shadow-lg p-2 mb-5 bg-white rounded'
+                        onKeyUp={function (e) {
+                            searchCountry(e.target.value);
+                        }}
+                        type='search'
+                        name=''
+                        placeholder='Search Country'
+                    />
+                </div>
             </div>
 
             {/* // Search Country */}
