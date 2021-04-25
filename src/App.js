@@ -1,18 +1,22 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import Country from './components/Country/Country';
 
 function App() {
+    const [originalCountries, setOriginalCountries] = useState([])
     const [countries, setCountries] = useState([]);
     const [wishlist, setWishlist] = useState([]);
 
     useEffect(() => {
         fetch('https://restcountries.eu/rest/v2/all')
-            .then((res) => res.json())
-            .then((countries) => setCountries(countries));
-        console.log('useEffect');
-    }, '');
+        .then((res) => res.json())
+        .then((countries) => {
+            setOriginalCountries(countries)
+            setCountries(countries);
+        },
+        console.log('useEffect'));
+    }, []);
 
     const handleWishList = (country) => {
         setWishlist([...wishlist, country]);
@@ -20,21 +24,15 @@ function App() {
     };
 
     // Search Country
-
     const searchCountry = (searchTerm) => {
         console.log(searchTerm);
-        const filteredCountries = countries.filter((country) => {
-            return searchTerm.toLowerCase() == country.name.toLowerCase()
-                ? true
-                : false;
+        const filteredCountries = originalCountries.filter((country) => {
+            return country.name.toLowerCase().includes(searchTerm.toLowerCase())
         });
-        console.log(filteredCountries);
-
         setCountries(filteredCountries);
     };
 
     // Search Country
-
     return (
         <div className='App'>
             <h2>Rest countries</h2>
@@ -42,24 +40,20 @@ function App() {
                 Total Countries List :
                 {countries.length === undefined ? 0 : countries.length}
             </h4>
-            {/* <h3>Wish list Courtries: {singleCountry.flag}</h3> */}
             <div>
-                Wish list Courtries:
+                Wish list Countries:
                 {wishlist.map((couFlag) => (
-                    <img src={couFlag.flag} height='25px' width='50px' />
+                    <img src={couFlag.flag} alt='country_image' height='25px' width='50px' />
                 ))}
             </div>
 
             {/* // Search Country */}
-
             <div className='form'>
+                <h5>Search Country </h5>
                 <input
-                    onKeyPress={function (e) {
-                        searchCountry(e.target.value);
-                    }}
+                    onKeyUp={function (e) { searchCountry(e.target.value); }}
                     type='search'
                     name=''
-                    id=''
                     placeholder='Search Country'
                 />
             </div>
